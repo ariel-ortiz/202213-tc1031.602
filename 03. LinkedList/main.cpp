@@ -8,6 +8,11 @@ int main()
     my_list.insert_front(10);
     my_list.insert_front(3);
 
+    std::cout << my_list.size() << "\n";
+    std::cout << my_list.to_string() << "\n";
+
+    std::cout << my_list.remove_front() << "\n";
+    std::cout << my_list.size() << "\n";
     std::cout << my_list.to_string() << "\n";
 
     return 0;
