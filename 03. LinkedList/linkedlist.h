@@ -8,6 +8,12 @@ class LinkedList {
 
 public:
 
+    // Forbid copy construction (initialization)
+    LinkedList(const LinkedList& other) = delete;
+
+    // Forbid assignment
+    LinkedList<T>& operator=(const LinkedList& other) = delete;
+
     // Complexity: O(1)
     // Default constructor
     LinkedList()
@@ -15,6 +21,14 @@ public:
         _sentinel = new Node;
         _sentinel->next = _sentinel;
         _sentinel->prev = _sentinel;
+    }
+
+    // Complexity: O(N)
+    LinkedList(std::initializer_list<T> args): LinkedList()
+    {
+        for (T arg: args) {
+            insert_back(arg);
+        }
     }
 
     // Complexity: O(N)
@@ -40,6 +54,20 @@ public:
         new_node->prev = _sentinel;
         _sentinel->next->prev = new_node;
         _sentinel->next = new_node;
+
+        ++_size;
+    }
+
+    // Complexity: O(1)
+    void insert_back(T value)
+    {
+        Node* new_node = new Node;
+        new_node->value = value;
+
+        new_node->prev = _sentinel->prev;
+        new_node->next = _sentinel;
+        _sentinel->prev->next = new_node;
+        _sentinel->prev = new_node;
 
         ++_size;
     }
@@ -84,9 +112,10 @@ public:
                 "Can't remove from the front of an empty list");
         }
 
-        T value = _start->value;
-        Node* p = _start;
-        _start = _start->next;
+        T value = _sentinel->next->value;
+        Node* p = _sentinel->next;
+        _sentinel->next = p->next;
+        p->next->prev = _sentinel;
         delete p;
         --_size;
         return value;
