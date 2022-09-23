@@ -84,15 +84,13 @@ public:
         std::ostringstream result;
         result << "[";
         bool first_time = true;
-        Node* p = _sentinel->next;
-        while (p != _sentinel) {
+        for (T value : *this) {
             if (first_time) {
                 first_time = false;
             } else {
                 result << ", ";
             }
-            result << p->value;
-            p = p->next;
+            result << value;
         }
         result << "]";
         return result.str();
@@ -121,6 +119,14 @@ public:
         return value;
     }
 
+    // Complexity: O(N), where N is the size of other
+    void extend(const LinkedList<T>& other)
+    {
+        for (T value : other) {
+            insert_back(value);
+        }
+    }
+
 private:
 
     struct Node {
@@ -129,6 +135,66 @@ private:
         Node* prev;
     };
 
+    class LinkedListIterator {
+
+    public:
+
+        // Complexity: O(1)
+        // Constructor
+        LinkedListIterator(Node* current)
+        {
+            _current = current;
+        }
+
+        // Complexity: O(1)
+        // Dereference operator
+        T operator*() const
+        {
+            return _current->value;
+        }
+
+        // Complexity: O(1)
+        // Pre-increment operator
+        void operator++()
+        {
+            _current = _current->next;
+        }
+
+        // Complexity: O(1)
+        // Inequality operator
+        bool operator!=(const LinkedListIterator& other) const
+        {
+            return _current != other._current;
+        }
+
+    private:
+
+        Node* _current;
+    };
+
     Node* _sentinel = nullptr;
     int _size = 0;
+
+public:
+
+    // Complexity: O(1)
+    // “Pointer” to the start of the collection
+    LinkedListIterator begin() const
+    {
+        return LinkedListIterator(_sentinel->next);
+    }
+
+    // Complexity: O(1)
+    // “Pointer” to the end of the collection
+    LinkedListIterator end() const
+    {
+        return LinkedListIterator(_sentinel);
+    }
 };
+
+// Complexity: O(N)
+template<typename T>
+std::ostream& operator<<(std::ostream& os, const LinkedList<T>& list)
+{
+    return os << list.to_string();
+}
