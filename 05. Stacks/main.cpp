@@ -36,6 +36,11 @@ int main()
     std::cout << is_palindrome("kayak") << "\n";
     std::cout << is_palindrome("boat") << "\n";
 
+    Stack<int> a(10);
+    // Stack<int> b = a;
+    Stack<int> c(10);
+    // c = a;
+
     return 0;
 }
 
