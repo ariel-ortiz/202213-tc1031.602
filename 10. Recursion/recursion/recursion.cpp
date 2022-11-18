@@ -117,9 +117,16 @@ bool is_prefix(const IntList& a, const IntList& b)
     return false;
 }
 
+// Complexity: O(N)
 IntList insert(int value, const IntList& a)
 {
-    return IntList {};
+    if (is_empty(a)) {
+        return IntList {value};
+    } else if (value <= first(a)) {
+        return cons(value, a);
+    } else {
+        return cons(first(a), insert(value, rest(a)));
+    }
 }
 
 IntList insertion_sort(const IntList& a)
@@ -127,7 +134,12 @@ IntList insertion_sort(const IntList& a)
     return IntList {};
 }
 
+// Complexity: O(N log N)
 IntList binary(int n)
 {
-    return IntList {};
+    if (n == 0) {
+        return IntList {};
+    } else {
+        return cons_end(n % 2, binary(n / 2));
+    }
 }

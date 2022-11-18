@@ -24,6 +24,8 @@ int main()
     std::cout << append(a, IntList {5, -1, 10, 2, 8}) << "\n";
     std::cout << repeat(10, 1) << "\n";
     std::cout << merge(IntList {1, 2, 3}, IntList {0, 2, 4, 5, 6}) << "\n";
+    std::cout << insert(16, IntList {4, 15, 23, 42}) << "\n";
+    std::cout << binary(1022) << "\n";
 
     return 0;
 }
