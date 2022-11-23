@@ -9,7 +9,21 @@ class TreeSet {
 
 public:
 
+    // Complexity: O(1)
     TreeSet() {}
+
+    // Complexity: O(N log N)
+    TreeSet(std::initializer_list<T> args)
+    {
+        for (T value : args) {
+            add(value);
+        }
+    }
+
+    ~TreeSet()
+    {
+        _delete(_root);
+    }
 
     // Complexity: O(log N)
     bool add(T value)
@@ -44,16 +58,19 @@ public:
         }
     }
 
+    // Complexity: O(N)
     void inorder(std::function<void(T)> fn) const
     {
         _inorder(fn, _root);
     }
 
+    // Complexity: O(N)
     void preorder(std::function<void(T)> fn) const
     {
         _preorder(fn, _root);
     }
 
+    // Complexity: O(N)
     void postorder(std::function<void(T)> fn) const
     {
         _postorder(fn, _root);
@@ -72,6 +89,15 @@ private:
         Node* left = nullptr;
         Node* right = nullptr;
     };
+
+    void _delete(Node* p)
+    {
+        if (p) {
+            _delete(p->left);
+            _delete(p->right);
+            delete p;
+        }
+    }
 
     void _inorder(std::function<void(T)> fn, Node* p) const
     {

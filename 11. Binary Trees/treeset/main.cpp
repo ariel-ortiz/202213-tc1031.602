@@ -9,15 +9,7 @@ void print_value(int x)
 
 int main()
 {
-    TreeSet<int> a;
-    a.add(15);
-    a.add(8);
-    a.add(20);
-    a.add(23);
-    a.add(21);
-    a.add(3);
-    a.add(1);
-    a.add(9);
+    TreeSet<int> a {15, 8, 20, 23, 21, 3, 1, 9};
 
     a.inorder(print_value);
     std::cout << "\n";
