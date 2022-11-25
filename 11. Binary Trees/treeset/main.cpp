@@ -35,5 +35,11 @@ int main()
     });
     std::cout << "even = " << even << "\n";
 
+    TreeSet<char> b {'h', 'e', 'l', 'l', 'o', 'w', 'o', 'r', 'l', 'd'};
+    b.levelorder([&] (char c) { std::cout << c << " "; });
+    std::cout << "\n";
+    std::cout << b.height() << "\n";
+    std::cout << b.is_full() << "\n";
+
     return 0;
 }
